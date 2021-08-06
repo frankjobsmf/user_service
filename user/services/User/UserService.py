@@ -63,3 +63,26 @@ class Login(APIView):
             "user": user.data,
             "status_code": status.HTTP_200_OK
         })
+
+class FindUsername(APIView):
+    def post(self, request, *args, **kwargs):
+
+        username_post = self.request.data['user_username']
+
+        try:
+            user_found = User.objects.get(username=username_post)
+
+            if user_found is None:
+                return Response({
+                    "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR
+                })
+
+            user = UserSerializer(user_found)
+
+            return Response({
+                "user": user.data,
+                "status_code": status.HTTP_200_OK
+            })
+
+        except User.DoesNotExist:
+            return None

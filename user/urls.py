@@ -5,6 +5,7 @@ from .services.User.UserService import (
     UserProfile,
     Register,
     Login,
+    FindUsername,
 )
 
 # from rest_framework_simplejwt.views import (
@@ -28,5 +29,10 @@ urlpatterns = [
     path(
         'login',
         Login.as_view(),
+    ),
+    # find user by username with api gateway
+    path(
+        'find-user',
+        FindUsername.as_view(),
     ),
 ]
